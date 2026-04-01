@@ -1,7 +1,7 @@
 import { itemTboi } from "../models/item.model.js";
 
 export const created_item = async (req, res) => {
-  const { Name, Description, Typeitem, Quote, Quality } = req.body;
+  const { Name, Description, Typeitem, Quote, Quality, Icon } = req.body;
   try {
     const newitem = await itemTboi.create({
       Name,
