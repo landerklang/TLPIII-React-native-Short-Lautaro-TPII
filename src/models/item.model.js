@@ -9,6 +9,9 @@ export const itemTboi = sequelize.define(
       required: true,
       unique: true,
     },
+    Icon: {
+      type: DataTypes.STRING(),
+    },
     Typeitem: {
       type: DataTypes.ENUM(["Active", "Passive"]),
     },

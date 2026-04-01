@@ -4,7 +4,7 @@ import {
   Get_Item_ById,
   update_item,
   deleted_item,
-} from "../controller/iterm.controller.js";
+} from "../controller/item.controller.js";
 
 import { Router } from "express";
 

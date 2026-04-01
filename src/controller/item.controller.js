@@ -5,6 +5,7 @@ export const created_item = async (req, res) => {
   try {
     const newitem = await itemTboi.create({
       Name,
+      Icon,
       Description,
       Typeitem,
       Quote,
