@@ -61,9 +61,10 @@ export const update_item = async (req, res) => {
 
 export const deleted_item = async (req, res) => {
   try {
-    const deleted = await itemTboi.destroy({ where: { id: req.params.id } });
+    const deleted = await itemTboi.findOne({ where: { id: req.params.id } });
     if (deleted) {
-      res.status(200).json({ message: "se elimino el item correctamente" });
+      await deleted.destroy();
+      res.json({ message: "se elimino el item correctamente" });
     } else return res.status(404).json({ message: "no se encontro el item" });
   } catch (err) {
     return res.status(500).json({ error: err.message });

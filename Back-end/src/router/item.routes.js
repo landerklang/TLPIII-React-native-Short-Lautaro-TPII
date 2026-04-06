@@ -16,8 +16,8 @@ item_router.post("/item", createdItemValidation, validator, created_item);
 
 item_router.get("/item", Get_All_Item);
 
-item_router.get("/item/id", Get_Item_ById);
+item_router.get("/item/:id", Get_Item_ById);
 
-item_router.put("/item/id", update_item);
+item_router.put("/item/:id", update_item);
 
-item_router.delete("/item/id", deleted_item);
+item_router.delete("/item/:id", deleted_item);
