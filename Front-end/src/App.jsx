@@ -1,6 +1,10 @@
-import { CreatedItempages } from "./page/CreatedItempages";
-import { Homepages } from "./page/Homepages";
+import { BrowserRouter } from "react-router-dom";
+import { AppRouter } from "./routers/Approuter.jsx";
 
 export const App = () => {
-  return Homepages();
+  return (
+    <BrowserRouter>
+      <AppRouter />;
+    </BrowserRouter>
+  );
 };
