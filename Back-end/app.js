@@ -6,8 +6,8 @@ import cors from "cors";
 const app = express();
 const PORT = process.env.PORT;
 const corsOption = {
-  origin: "http://localhost:4000",
-  Credential: true,
+  origin: `http://localhost:5173`,
+  credential: true,
 };
 
 app.use(express.json());
