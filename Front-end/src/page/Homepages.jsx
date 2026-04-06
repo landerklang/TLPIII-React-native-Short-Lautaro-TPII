@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ItemCard } from "../components/itemcard";
+import { SearchBar } from "../components/searchbar";
 
 export const Homepages = () => {
   const [Item, setItem] = useState([]);
   const [mostrarMenu, setMostrarMenu] = useState(null);
+  const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,21 +31,23 @@ export const Homepages = () => {
       });
 
       if (!res.ok) {
-        return alert("No se pudo eliminar el objeto");
+        return alert("No se pudo eliminar");
       }
 
       setItem((prev) => prev.filter((item) => item.id !== id));
       setMostrarMenu(null);
-
-      alert("Objeto eliminado correctamente");
     } catch (error) {
-      console.log("Error al eliminar: " + error);
+      console.log(error);
     }
   };
 
   const handleEdit = (id) => {
     navigate(`/edit/${id}`);
   };
+
+  const filteredItems = Item.filter((item) =>
+    item.Name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   useEffect(() => {
     loadAllData();
@@ -54,36 +59,19 @@ export const Homepages = () => {
         <button>Crear un objeto</button>
       </Link>
 
+      <SearchBar search={search} setSearch={setSearch} />
+
       <div>
-        {Item.length > 0 ? (
-          Item.map((item) => (
-            <div key={item.id}>
-              <p>ID: {item.id}</p>
-              <p>Nombre: {item.Name}</p>
-              <p>Icon: {item.Icon}</p>
-              <p>Tipo de objeto: {item.Typeitem}</p>
-              <p>Cita: {item.Quote}</p>
-              <p>Descripción: {item.Description}</p>
-              <p>Calidad: {item.Quality}</p>
-
-              <button
-                onClick={() =>
-                  setMostrarMenu(mostrarMenu === item.id ? null : item.id)
-                }
-              >
-                ⋮
-              </button>
-
-              {mostrarMenu === item.id && (
-                <div>
-                  <button onClick={() => handleEdit(item.id)}>Editar</button>
-
-                  <button onClick={() => handleDeleted(item.id)}>
-                    Eliminar
-                  </button>
-                </div>
-              )}
-            </div>
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item) => (
+            <ItemCard
+              key={item.id}
+              item={item}
+              mostrarMenu={mostrarMenu}
+              setMostrarMenu={setMostrarMenu}
+              onDelete={handleDeleted}
+              onEdit={handleEdit}
+            />
           ))
         ) : (
           <div>No hay objetos</div>
