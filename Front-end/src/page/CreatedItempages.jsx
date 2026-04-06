@@ -1,4 +1,5 @@
 import { useForm } from "../hook/Useform";
+import { useNavigate } from "react-router-dom";
 
 export const CreatedItempages = () => {
   const { Form, handleChange, handleReset, handleImag } = useForm({
@@ -9,6 +10,9 @@ export const CreatedItempages = () => {
     Description: "",
     Quality: 0,
   });
+
+  const navigate = useNavigate();
+
   const CreatedItem = async (event) => {
     event.preventDefault();
     try {
@@ -21,12 +25,13 @@ export const CreatedItempages = () => {
         },
       });
 
-      if (!Fetchitem) {
-        console.log("Error en la fetch");
+      if (!Fetchitem.ok) {
+        return console.log("Error en la fetch");
       }
       const data = await Fetchitem.json();
       console.log(data.Create);
       handleReset();
+      navigate("/home");
     } catch (error) {
       console.log("Error interno del servidor " + error);
       console.log(data);
