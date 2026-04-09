@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ItemCard } from "../components/itemcard";
-import { SearchBar } from "../components/searchbar";
+import { ItemCard } from "../components/ItemCard";
+import { SearchBar } from "../components/SearchBar";
 
 export const Homepages = () => {
   const [Item, setItem] = useState([]);

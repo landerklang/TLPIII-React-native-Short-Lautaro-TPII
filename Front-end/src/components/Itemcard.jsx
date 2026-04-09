@@ -1,3 +1,4 @@
+import "../styles/ItemCard.css";
 export const ItemCard = ({
   item,
   mostrarMenu,
