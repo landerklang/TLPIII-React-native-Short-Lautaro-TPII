@@ -6,26 +6,34 @@ export const itemTboi = sequelize.define(
   {
     Name: {
       type: DataTypes.STRING(),
-      required: true,
+      allowNull: false,
       unique: true,
     },
     Icon: {
-      type: DataTypes.STRING(),
+      type: DataTypes.TEXT(),
     },
     Typeitem: {
       type: DataTypes.ENUM(["Active", "Passive"]),
     },
     Quote: {
       type: DataTypes.STRING(),
-      required: true,
+      allowNull: false,
     },
     Description: {
-      type: DataTypes.STRING(),
-      required: true,
+      type: DataTypes.TEXT(),
+      allowNull: false,
     },
     Quality: {
       type: DataTypes.INTEGER(),
-      required: true,
+      allowNull: false,
+    },
+    Pool: {
+      type: DataTypes.STRING(),
+      allowNull: true,
+    },
+    Interactions: {
+      type: DataTypes.TEXT(),
+      allowNull: true,
     },
   },
   {

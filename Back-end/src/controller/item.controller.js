@@ -1,7 +1,17 @@
+import e from "express";
 import { itemTboi } from "../models/item.model.js";
 
 export const created_item = async (req, res) => {
-  const { Name, Description, Typeitem, Quote, Quality, Icon } = req.body;
+  const {
+    Name,
+    Description,
+    Typeitem,
+    Quote,
+    Quality,
+    Icon,
+    Pool,
+    Interactions,
+  } = req.body;
   try {
     const newitem = await itemTboi.create({
       Name,
@@ -10,6 +20,8 @@ export const created_item = async (req, res) => {
       Typeitem,
       Quote,
       Quality,
+      Pool,
+      Interactions,
     });
     res.status(201).json({
       msg: "objeto creado correctamente",
@@ -34,14 +46,15 @@ export const Get_All_Item = async (req, res) => {
 
 export const Get_Item_ById = async (req, res) => {
   try {
-    const getitem = await itemTboi.findByPk({
-      where: { item_id: req.user.id },
-    });
+    const getitem = await itemTboi.findByPk(req.params.id);
+    if (!getitem) {
+      res.status(404).json({ msg: "el item no fue encontrado" });
+    }
     res.status(200).json({
-      getitem,
+      item: getitem,
     });
   } catch (error) {
-    return res.status(404).json("el item no fue encontrando" + error);
+    return res.status(500).json("Error al obtener el item" + error);
   }
 };
 
@@ -50,12 +63,14 @@ export const update_item = async (req, res) => {
     const [update] = await itemTboi.update(req.body, {
       where: { id: req.params.id },
     });
-    if (update) {
+    if (!update) {
+      res.status(404).json({ msg: "no se encontro el item" });
+    } else {
       const updateitem = await itemTboi.findByPk(req.params.id);
       res.json(updateitem);
     }
   } catch (error) {
-    return res.status(404).json("no se encontro el item" + error);
+    return res.status(404).json("no se encontro el item " + error);
   }
 };
 
