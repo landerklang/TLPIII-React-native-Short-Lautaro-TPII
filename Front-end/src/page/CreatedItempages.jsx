@@ -1,6 +1,25 @@
 import { useForm } from "../hook/Useform";
 import { useNavigate } from "react-router-dom";
 
+const Pools = [
+  "Treasure Room",
+  "Devil Room",
+  "Angel Room",
+  "Secret Room",
+  "Shop",
+  "Boss Room",
+  "Curse Room",
+  "Library",
+  "Beggar",
+  "Golden Chest",
+  "Red Chest",
+  "Greed Mode",
+  "Crane Game",
+  "Bomb Bum",
+  "Battery Bum",
+  "",
+];
+
 export const CreatedItempages = () => {
   const { Form, handleChange, handleReset, handleImag } = useForm({
     Name: "",
@@ -9,6 +28,8 @@ export const CreatedItempages = () => {
     Quote: "",
     Description: "",
     Quality: 0,
+    Pool: "",
+    Interactions: "",
   });
 
   const navigate = useNavigate();
@@ -58,6 +79,13 @@ export const CreatedItempages = () => {
               placeholder="haga click en ingrese una imagen"
               onChange={handleImag}
             />
+            {Form.Icon && (
+              <img
+                src={Fomr.Icon}
+                alt="preview"
+                style={{ width: 64, height: 64, objectFit: "contain" }}
+              />
+            )}
             <input
               type="radio"
               name="Typeitem"
@@ -77,7 +105,7 @@ export const CreatedItempages = () => {
             <input
               type="text"
               name="Quote"
-              value={Form.value}
+              value={Form.Quote}
               placeholder="ingrese una frase que relaciones al objeto"
               onChange={handleChange}
             />
@@ -98,6 +126,23 @@ export const CreatedItempages = () => {
               min="0"
               max="4"
               value={Form.Quality}
+              onChange={handleChange}
+            />
+            <label>Pool(sala donde aparece el objeto):</label>
+            <select name="Pool" value={Form.Pool} onChange={handleChange}>
+              <option value="">--Seleccionar la Pool</option>
+              {Pools.map((pool) => (
+                <option key={pool} value={pool}>
+                  {pool}
+                </option>
+              ))}
+            </select>
+            <label>Interacciones (separada por comas):</label>
+            <input
+              type="text"
+              name="Interactions"
+              value={Form.Interactions}
+              placeholder="brimstone,ect"
               onChange={handleChange}
             />
           </div>

@@ -19,12 +19,12 @@ export const useForm = (inicialValue) => {
 
   const handleImag = (event) => {
     const file = event.target.files[0];
-    handleChange({
-      target: {
-        name: "Icon",
-        value: URL.createObjectURL(file),
-      },
-    });
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setForm((prev) => ({ ...prev, Icon: reader.file }));
+    };
+    reader.readAsDataURL(file);
   };
   return { Form, setForm, handleChange, handleReset, handleSubmit, handleImag };
 };
