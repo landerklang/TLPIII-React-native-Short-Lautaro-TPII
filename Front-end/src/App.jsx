@@ -4,7 +4,7 @@ import { AppRouter } from "./routers/Approuter.jsx";
 export const App = () => {
   return (
     <BrowserRouter>
-      <AppRouter />;
+      <AppRouter />
     </BrowserRouter>
   );
 };

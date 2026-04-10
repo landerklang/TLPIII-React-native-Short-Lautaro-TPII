@@ -45,4 +45,31 @@ export const createdItemValidation = [
     )
     .isIn([0, 1, 2, 3, 4])
     .withMessage("solamente se permiten los grados 0,1,2,3,4"),
+  body("Pool")
+    .optional()
+    .isString()
+    .withMessage("la pool debe ser en texto")
+    .isIn([
+      "Treasure Room",
+      "Devil Room",
+      "Angel Room",
+      "Secret Room",
+      "Shop",
+      "Boss Room",
+      "Curse Room",
+      "Library",
+      "Beggar",
+      "Golden Chest",
+      "Red Chest",
+      "Greed Mode",
+      "Crane Game",
+      "Bomb Bum",
+      "Battery Bum",
+      "",
+    ])
+    .withMessage("la pool indicada no es valida"),
+  body("Interactions")
+    .optional()
+    .isString()
+    .withMessage("las interacciones deben ser texto"),
 ];
