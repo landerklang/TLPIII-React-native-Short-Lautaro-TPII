@@ -1,5 +1,5 @@
 import { useForm } from "../hook/useform";
-import { useNavigate } from "react-router-dom";
+import { href, useNavigate } from "react-router-dom";
 import { PoolSelector } from "../components/PoolSelector.jsx";
 import "../styles/Forms.css";
 
@@ -115,7 +115,10 @@ export const CreatedItempages = () => {
                   checked={Form.Typeitem === "Active"}
                   onChange={handleChange}
                 />
-                ⚡ Activo
+                {
+                  <img src="https://static.wikia.nocookie.net/bindingofisaacre_gamepedia/images/e/e2/Lil%27_Battery.png/revision/latest?cb=20151115051626" />
+                }
+                Activo
               </label>
               <label className="form-radio-label">
                 <input
