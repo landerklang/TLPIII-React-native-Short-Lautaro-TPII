@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { DEFAULT_POOLS } from "../components/Pools.jsx";
 import "../styles/Itemdetailpages.css";
 
 const QUALITY_COLORS = {
@@ -79,6 +80,12 @@ export const ItemDetailPage = () => {
         .filter(Boolean)
     : [];
 
+  const selectedPool = DEFAULT_POOLS.find(
+    (pool) =>
+      pool.name.toLowerCase() === item.Pool?.toLowerCase() ||
+      pool.id.toLowerCase() === item.Pool?.toLowerCase(),
+  );
+
   return (
     <div className="detail-page">
       <button className="detail-back-btn" onClick={() => navigate("/home")}>
@@ -141,7 +148,10 @@ export const ItemDetailPage = () => {
           {item.Pool && (
             <div className="detail-row">
               <span className="detail-label">Pool</span>
-              <span className="detail-pool">📍 {item.Pool}</span>
+              <div className="detail-pool">
+                {selectedPool?.Icon && <selectedPool.Icon />}
+                <span>{item.Pool}</span>
+              </div>
             </div>
           )}
 
