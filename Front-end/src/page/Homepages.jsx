@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ItemCard } from "../components/ItemCard";
+import { ItemCard } from "../components/Itemcard.jsx";
 import { SearchBar } from "../components/SearchBar";
 
 export const Homepages = () => {
