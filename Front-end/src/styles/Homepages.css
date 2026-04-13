@@ -53,3 +53,29 @@
   font-size: 12px;
   color: var(--text-dim);
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-select {
+  padding: 10px 14px;
+  background: var(--wiki-input-bg);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: "Cinzel", serif;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-select:hover {
+  border-color: #d4af37;
+}
+
+.filter-select option {
+  background: #2a1407;
+  color: var(--text-main);
+}

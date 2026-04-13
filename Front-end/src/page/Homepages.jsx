@@ -9,6 +9,7 @@ export const Homepages = () => {
   const [mostrarMenu, setMostrarMenu] = useState(null);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [typeFilter, setTypeFilter] = useState("all");
 
   const loadAllData = async () => {
     try {
@@ -38,9 +39,20 @@ export const Homepages = () => {
     }
   };
 
-  const filtered = Item.filter((item) =>
-    item.Name?.toLowerCase().includes(search.toLowerCase()),
-  );
+  // const filtered = Item.filter((item) =>
+  //   item.Name?.toLowerCase().includes(search.toLowerCase()),
+  // );
+
+  const filteredItems = Item.filter((item) => {
+    const matchesSearch = item.Name?.toLowerCase().includes(
+      search.toLowerCase(),
+    );
+
+    const matchesType =
+      typeFilter === "all" || item.Typeitem?.toLowerCase() === typeFilter;
+
+    return matchesSearch && matchesType;
+  });
 
   useEffect(() => {
     loadAllData();
@@ -57,9 +69,21 @@ export const Homepages = () => {
             The Binding of Isaac: Rebirth — {Item.length} objetos registrados
           </p>
         </div>
-        <Link to="/created">
-          <button className="btn-primary">+ Añadir objeto</button>
-        </Link>
+        <div className="header-actions">
+          <select
+            className="filter-select"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
+            <option value="all">Todos</option>
+            <option value="active">⚡ Activos</option>
+            <option value="passive">✨ Pasivos</option>
+          </select>
+
+          <Link to="/created">
+            <button className="btn-primary">+ Añadir objeto</button>
+          </Link>
+        </div>
       </header>
 
       <div className="wiki-divider" style={{ margin: "14px 0" }} />
@@ -75,9 +99,9 @@ export const Homepages = () => {
       <div className="wiki-panel homepage__content">
         {loading ? (
           <div className="homepage__state">Cargando objetos...</div>
-        ) : filtered.length > 0 ? (
+        ) : filteredItems.length > 0 ? (
           <div className="homepage__grid">
-            {filtered.map((item) => (
+            {filteredItems.map((item) => (
               <ItemCard
                 key={item.id}
                 item={item}
