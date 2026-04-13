@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ItemCard } from "../components/Itemcard.jsx";
 import { SearchBar } from "../components/SearchBar.jsx";
-import "../styles/Homepage.css";
+import "../styles/Homepages.css";
 
 export const Homepages = () => {
   const [Item, setItem] = useState([]);

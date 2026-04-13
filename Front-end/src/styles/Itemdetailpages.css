@@ -1,87 +1,72 @@
-/* ============================================
-   ItemDetailPage — vista de detalle del objeto
-   ============================================ */
+/* Itemdetailpages.css — Estilos para la página de detalle */
 
 .detail-page {
-  min-height: 100vh;
-  background-color: #0f0f1a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 32px 16px;
-  font-family: "Courier New", monospace;
-  color: #e0d6c8;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .detail-loading {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  font-family: "Courier New", monospace;
-  font-size: 18px;
-  background-color: #0f0f1a;
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 16px;
+  color: var(--text-dim);
+  font-family: "Share Tech Mono", monospace;
 }
 
+/* Botón volver */
 .detail-back-btn {
-  align-self: flex-start;
-  background: none;
-  border: 1px solid #444;
-  color: #aaa;
-  padding: 8px 14px;
-  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--wiki-border-dk);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-family: "Cinzel", serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   cursor: pointer;
-  font-family: "Courier New", monospace;
-  font-size: 13px;
+  border-radius: 3px;
   margin-bottom: 24px;
-  transition:
-    background 0.15s,
-    color 0.15s;
+  transition: all 0.2s ease;
 }
 
 .detail-back-btn:hover {
-  background-color: #222;
-  color: #fff;
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.1);
 }
 
+/* Tarjeta principal */
 .detail-card {
-  position: relative;
-  width: 100%;
-  max-width: 540px;
-  background-color: #1a1a2e;
-  border: 2px solid #555;
-  border-radius: 12px;
+  background: var(--wiki-panel-bg);
+  border: 1px solid var(--wiki-border);
+  border-radius: 4px;
   overflow: hidden;
-  padding: 28px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Barra de calidad (arriba) */
 .detail-quality-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
+  height: 4px;
+  width: 100%;
 }
 
-/* Cabecera */
+/* Cabecera con icono */
 .detail-header {
   display: flex;
   gap: 20px;
-  align-items: flex-start;
-  margin-top: 8px;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--wiki-border-dk);
 }
 
 .detail-icon {
   flex-shrink: 0;
-  width: 96px;
-  height: 96px;
-  background-color: #0d0d1a;
-  border: 1px solid #333;
-  border-radius: 8px;
+  width: 80px;
+  height: 80px;
+  background: var(--wiki-input-bg);
+  border: 1px solid var(--wiki-border-dk);
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,115 +74,125 @@
 }
 
 .detail-icon img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  image-rendering: pixelated;
 }
 
 .detail-icon-placeholder {
-  font-size: 42px;
+  font-size: 48px;
   font-weight: bold;
-  color: #555;
+  color: var(--text-dim);
+  font-family: "Cinzel", serif;
 }
 
 .detail-title-block {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
 }
 
 .detail-id {
-  margin: 0;
-  font-size: 12px;
-  color: #666;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  font-family: "Cinzel", serif;
+  margin: 0 0 4px 0;
 }
 
 .detail-name {
-  margin: 0;
-  font-size: 22px;
-  font-weight: bold;
-  color: #f0e6d3;
-  line-height: 1.2;
+  font-size: 28px;
+  font-family: "Cinzel", serif;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
 }
 
 .detail-quote {
-  margin: 0;
+  font-size: 14px;
   font-style: italic;
-  color: #b0a090;
-  font-size: 13px;
+  color: var(--gold);
+  margin: 0;
+  font-family: "Georgia", serif;
+  opacity: 0.9;
 }
 
-/* Cuerpo */
+/* Cuerpo de información */
 .detail-body {
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  border-top: 1px solid #2a2a3e;
-  padding-top: 18px;
+  gap: 16px;
 }
 
 .detail-row {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--wiki-border-dk);
 }
 
 .detail-label {
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #666;
-  min-width: 90px;
-  margin: 0 0 6px 0;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  font-family: "Cinzel", serif;
+  min-width: 100px;
 }
 
+/* Tipo de item */
 .detail-type {
   font-size: 13px;
-  font-weight: bold;
-  padding: 3px 10px;
-  border-radius: 12px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-weight: 500;
 }
 
 .detail-type--active {
-  background-color: #1e3a5f;
+  background: rgba(33, 150, 243, 0.15);
   color: #64b5f6;
+  border: 1px solid rgba(33, 150, 243, 0.3);
 }
 
-.detail-type--passive {
-  background-color: #2d1b4e;
+.detail-type--pasivo {
+  background: rgba(156, 39, 176, 0.15);
   color: #ce93d8;
+  border: 1px solid rgba(156, 39, 176, 0.3);
 }
 
+/* Calidad */
 .detail-quality {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
 }
 
+/* Pool */
 .detail-pool {
   font-size: 13px;
-  color: #aaa;
+  color: var(--text-main);
+  font-family: "Share Tech Mono", monospace;
 }
 
+/* Descripción */
 .detail-description {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .detail-description-text {
-  margin: 0;
   font-size: 14px;
-  color: #c8bfb0;
   line-height: 1.6;
-  background-color: #12121f;
+  color: var(--text-main);
+  margin: 0;
+  background: var(--wiki-input-bg);
   padding: 12px;
-  border-radius: 6px;
-  border-left: 3px solid #333;
+  border-radius: 4px;
+  border-left: 3px solid var(--gold);
 }
 
-/* Chips de interacciones */
+/* Interacciones - chips */
 .detail-interactions {
   display: flex;
   flex-direction: column;
@@ -211,45 +206,106 @@
 }
 
 .detail-chip {
-  background-color: #2a2a3e;
-  border: 1px solid #444;
-  color: #d0c8e0;
-  font-size: 12px;
+  background: var(--wiki-input-bg);
+  border: 1px solid var(--wiki-border-dk);
   padding: 4px 10px;
-  border-radius: 20px;
-  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-family: "Share Tech Mono", monospace;
+  color: var(--text-dim);
+  border-radius: 3px;
+  transition: all 0.15s ease;
+}
+
+.detail-chip:hover {
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 /* Botones de acción */
 .detail-actions {
   display: flex;
   gap: 12px;
-  border-top: 1px solid #2a2a3e;
-  padding-top: 18px;
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--wiki-border-dk);
+  background: var(--wiki-panel-mid);
 }
 
 .detail-btn {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
+  font-size: 13px;
+  font-family: "Cinzel", serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   border: none;
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
-  font-family: "Courier New", monospace;
-  font-size: 14px;
-  font-weight: bold;
-  transition: opacity 0.15s;
-}
-
-.detail-btn:hover {
-  opacity: 0.85;
+  transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 .detail-btn--edit {
-  background-color: #1e3a5f;
-  color: #64b5f6;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.detail-btn--edit:hover {
+  background: rgba(212, 175, 55, 0.3);
+  transform: translateY(-1px);
 }
 
 .detail-btn--delete {
-  background-color: #3f1a1a;
-  color: #ef9a9a;
+  background: rgba(239, 83, 80, 0.15);
+  color: #ef5350;
+  border: 1px solid #ef5350;
+}
+
+.detail-btn--delete:hover {
+  background: rgba(239, 83, 80, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .detail-page {
+    padding: 12px;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .detail-title-block {
+    text-align: center;
+  }
+
+  .detail-name {
+    font-size: 22px;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .detail-label {
+    min-width: auto;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+  }
+
+  .detail-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .detail-icon-placeholder {
+    font-size: 32px;
+  }
 }

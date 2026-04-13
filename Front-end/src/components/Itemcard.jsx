@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { DEFAULT_POOLS } from "../data/pools.jsx";
-import { ActiveIcon, PassiveIcon } from "../icons/isaacIcons.jsx";
+import { DEFAULT_POOLS } from "./pools.jsx";
+import { ActiveIcon, PassiveIcon } from "./Isaacicons.jsx";
 import "../styles/ItemCard.css";
 
 // Colores de calidad del juego

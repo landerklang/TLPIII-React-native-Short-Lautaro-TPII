@@ -96,7 +96,16 @@ export const ItemDetailPage = () => {
         <div className="detail-header">
           <div className="detail-icon">
             {item.Icon ? (
-              <img src={item.Icon} alt={item.Name} />
+              <img
+                src={item.Icon}
+                alt={item.Name}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  imageRendering: "pixelated",
+                }}
+              />
             ) : (
               <span className="detail-icon-placeholder">
                 {item.Name?.charAt(0).toUpperCase()}
