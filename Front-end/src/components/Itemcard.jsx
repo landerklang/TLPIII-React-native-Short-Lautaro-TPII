@@ -1,27 +1,30 @@
 import { useNavigate } from "react-router-dom";
+import { DEFAULT_POOLS } from "./Pools.jsx";
 import "../styles/ItemCard.css";
 
-const Quality_Colors = {
-  0: "#888888",
-  1: "#4caf50",
-  2: "#2196f3",
-  3: "#9c27b0",
-  4: "#ff9800",
-};
+// Mapa de quality a color (usando las variables CSS)
+const QUALITY_COLORS = ["#6b6b6b", "#4a7c4e", "#2e5fa3", "#7b3f9e", "#c0622a"];
+const QUALITY_LABELS = [
+  "Común",
+  "Poco común",
+  "Raro",
+  "Muy raro",
+  "Legendario",
+];
 
-const Quality_labels = {
-  0: "Común",
-  1: "Poco común",
-  2: "Raro",
-  3: "Muy raro",
-  4: "Legendario",
+// Busca el ícono SVG de la pool por nombre
+const getPoolIcon = (poolName) => {
+  const pool = DEFAULT_POOLS.find(
+    (p) => p.name.toLowerCase() === poolName?.toLowerCase(),
+  );
+  return pool?.icon ?? null;
 };
 
 export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
   const navigate = useNavigate();
-
-  const qualityColor = Quality_Colors[item.Quality] ?? "#888";
-  const qualityLabel = Quality_labels[item.Quality] ?? "Desconocido";
+  const qualityColor = QUALITY_COLORS[item.Quality] ?? "#6b6b6b";
+  const qualityLabel = QUALITY_LABELS[item.Quality] ?? "Desconocido";
+  const poolIcon = getPoolIcon(item.Pool);
 
   const handleCardClick = (e) => {
     if (e.target.closest(".item-card__menu-wrapper")) return;
@@ -32,8 +35,12 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
     <div
       className="item-card"
       onClick={handleCardClick}
-      style={{ borderColor: qualityColor }}
+      style={{ "--quality-color": qualityColor }}
     >
+      {/* Barra de calidad superior */}
+      <div className="item-card__quality-bar" />
+
+      {/* Ícono del objeto */}
       <div className="item-card__icon">
         {item.Icon ? (
           <img src={item.Icon} alt={item.Name} />
@@ -44,18 +51,28 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
         )}
       </div>
 
-      <div
-        className="item-card__quality-bar"
-        style={{ backgroundColor: qualityColor }}
-        title={`Calidad: ${qualityLabel}`}
-      />
-      {<h3 className="item-card__name">{item.Name}</h3>}
-      {item.Pool && <p className="item-card__pool">📍 {item.Pool}</p>}
-      <span
-        className={`item-card__type item-card__type--${item.Typeitem?.toLowerCase()}`}
-      >
-        {item.Typeitem === "Active" ? "⚡ Activo" : "✨ Pasivo"}
-      </span>
+      {/* Nombre */}
+      <h3 className="item-card__name">{item.Name}</h3>
+
+      {/* Pool con ícono */}
+      {item.Pool && (
+        <div className="item-card__pool">
+          {poolIcon && <span className="item-card__pool-icon">{poolIcon}</span>}
+          <span className="item-card__pool-name">{item.Pool}</span>
+        </div>
+      )}
+
+      {/* Tipo + Calidad */}
+      <div className="item-card__footer">
+        <span
+          className={`item-card__type item-card__type--${item.Typeitem?.toLowerCase()}`}
+        >
+          {item.Typeitem === "Active" ? "⚡" : "✨"}
+        </span>
+        <span className="item-card__quality-dot" title={qualityLabel} />
+      </div>
+
+      {/* Menú de 3 puntos */}
       <div className="item-card__menu-wrapper">
         <button
           className="item-card__menu-btn"
@@ -66,9 +83,8 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
         >
           ⋮
         </button>
-
         {mostrarMenu === item.id && (
-          <div className="item-card__menu-dropdown">
+          <div className="item-card__dropdown">
             <button
               onClick={(e) => {
                 e.stopPropagation();

@@ -1,0 +1,41 @@
+/* ============================================
+   Homepage.css
+   ============================================ */
+
+.homepage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.homepage__subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-family: "Share Tech Mono", monospace;
+}
+
+/* Grid de cartas */
+.homepage__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.homepage__loading,
+.homepage__empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 60px 0;
+  width: 100%;
+}
+
+.homepage__empty-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-dim);
+}

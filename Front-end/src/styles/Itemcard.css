@@ -1,6 +1,5 @@
 /* ============================================
-   ItemCard — estilo The Binding of Isaac
-   Paleta oscura, pixelada, con acentos de color por calidad
+   ItemCard.css — carta de objeto estilo wiki Isaac
    ============================================ */
 
 .item-card {
@@ -8,155 +7,192 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 
-  width: 160px;
-  padding: 16px 12px 12px;
-  border-radius: 8px;
-  border: 2px solid #555;
+  width: 150px;
+  min-height: 190px;
+  padding: 14px 10px 10px;
 
-  background-color: #1a1a2e;
-  color: #e0d6c8;
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-mid);
+  border-radius: 6px;
   cursor: pointer;
+
+  /* El color de calidad se pasa como variable CSS desde el componente */
+  --quality-color: #6b6b6b;
 
   transition:
     transform 0.15s ease,
-    box-shadow 0.15s ease;
-  font-family: "Courier New", monospace;
+    box-shadow 0.15s ease,
+    border-color 0.15s;
 }
 
 .item-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  border-color: var(--quality-color);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.5),
+    0 0 8px rgba(var(--quality-color), 0.2);
 }
 
-/* Barra de calidad en la parte superior */
+/* Barra de calidad en la parte superior — usa la variable de color */
 .item-card__quality-bar {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  border-radius: 6px 6px 0 0;
-  opacity: 0.85;
+  height: 3px;
+  border-radius: 5px 5px 0 0;
+  background-color: var(--quality-color);
+  opacity: 0.8;
 }
 
-/* Contenedor del icono */
+/* Contenedor del ícono */
 .item-card__icon {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
+  background-color: #0a0a14;
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0d0d1a;
-  border-radius: 6px;
-  border: 1px solid #333;
   overflow: hidden;
+  margin-top: 4px;
 }
 
 .item-card__icon img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  image-rendering: pixelated; /* mantiene el estilo pixelado del juego */
+  image-rendering: pixelated;
 }
 
-/* Placeholder cuando no hay imagen */
 .item-card__icon-placeholder {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: bold;
-  color: #666;
-  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: "Cinzel", serif;
 }
 
-/* Nombre del objeto */
+/* Nombre */
 .item-card__name {
-  margin: 0;
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 12px;
+  font-family: "Cinzel", "Palatino Linotype", serif;
+  font-weight: 600;
+  color: var(--text-primary);
   text-align: center;
-  color: #f0e6d3;
   line-height: 1.3;
-}
-
-/* Pool */
-.item-card__pool {
   margin: 0;
-  font-size: 11px;
-  color: #aaa;
-  text-align: center;
 }
 
-/* Tipo de objeto */
+/* Pool con ícono */
+.item-card__pool {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.item-card__pool-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.item-card__pool-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.item-card__pool-name {
+  font-size: 9px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+/* Footer — tipo y calidad */
+.item-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4px;
+  margin-top: auto;
+}
+
 .item-card__type {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-weight: bold;
+  font-size: 14px;
 }
 
-.item-card__type--active {
-  background-color: #1e3a5f;
-  color: #64b5f6;
-}
-
-.item-card__type--passive {
-  background-color: #2d1b4e;
-  color: #ce93d8;
+/* Punto de calidad */
+.item-card__quality-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--quality-color);
+  box-shadow: 0 0 4px var(--quality-color);
 }
 
 /* Menú de 3 puntos */
 .item-card__menu-wrapper {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 6px;
+  right: 6px;
 }
 
 .item-card__menu-btn {
   background: none;
   border: none;
-  color: #888;
-  font-size: 18px;
+  color: var(--text-dim);
+  font-size: 16px;
   cursor: pointer;
-  padding: 0 4px;
+  padding: 0 3px;
   line-height: 1;
-  border-radius: 4px;
-  transition: background 0.1s;
+  border-radius: 3px;
+  transition:
+    background 0.1s,
+    color 0.1s;
 }
 
 .item-card__menu-btn:hover {
-  background-color: #333;
-  color: #ccc;
+  background-color: var(--bg-hover);
+  color: var(--text-muted);
 }
 
-/* Dropdown del menú */
-.item-card__menu-dropdown {
+/* Dropdown */
+.item-card__dropdown {
   position: absolute;
-  top: 24px;
+  top: 22px;
   right: 0;
-  background-color: #2a2a3e;
-  border: 1px solid #444;
-  border-radius: 6px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-mid);
+  border-radius: 5px;
   overflow: hidden;
-  z-index: 10;
+  z-index: 20;
   min-width: 120px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
 }
 
-.item-card__menu-dropdown button {
+.item-card__dropdown button {
   display: block;
   width: 100%;
   padding: 8px 12px;
   background: none;
   border: none;
-  color: #ddd;
+  color: var(--text-primary);
   text-align: left;
+  font-size: 12px;
+  font-family: "Share Tech Mono", monospace;
   cursor: pointer;
-  font-size: 13px;
-  font-family: "Courier New", monospace;
   transition: background 0.1s;
 }
 
-.item-card__menu-dropdown button:hover {
-  background-color: #3a3a5e;
+.item-card__dropdown button:hover {
+  background-color: var(--bg-hover);
 }
