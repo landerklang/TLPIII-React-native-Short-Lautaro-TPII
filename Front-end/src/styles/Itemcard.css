@@ -1,33 +1,162 @@
+/* ============================================
+   ItemCard — estilo The Binding of Isaac
+   Paleta oscura, pixelada, con acentos de color por calidad
+   ============================================ */
+
 .item-card {
-  background: #2b2b2b;
-  border: 2px solid #444;
-  border-radius: 14px;
-  padding: 16px;
-  margin: 16px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.item-card p {
-  margin: 6px 0;
-}
-
-.menu-button {
-  background: #5a3a22;
-  color: white;
-}
-
-.item-menu {
-  margin-top: 10px;
+  position: relative;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  width: 160px;
+  padding: 16px 12px 12px;
+  border-radius: 8px;
+  border: 2px solid #555;
+
+  background-color: #1a1a2e;
+  color: #e0d6c8;
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  font-family: "Courier New", monospace;
 }
 
-.delete-btn {
-  background: #8b1e1e;
-  color: white;
+.item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
-.edit-btn {
-  background: #3d5a80;
-  color: white;
+/* Barra de calidad en la parte superior */
+.item-card__quality-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 6px 6px 0 0;
+  opacity: 0.85;
+}
+
+/* Contenedor del icono */
+.item-card__icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0d0d1a;
+  border-radius: 6px;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.item-card__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated; /* mantiene el estilo pixelado del juego */
+}
+
+/* Placeholder cuando no hay imagen */
+.item-card__icon-placeholder {
+  font-size: 28px;
+  font-weight: bold;
+  color: #666;
+  text-transform: uppercase;
+}
+
+/* Nombre del objeto */
+.item-card__name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  color: #f0e6d3;
+  line-height: 1.3;
+}
+
+/* Pool */
+.item-card__pool {
+  margin: 0;
+  font-size: 11px;
+  color: #aaa;
+  text-align: center;
+}
+
+/* Tipo de objeto */
+.item-card__type {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.item-card__type--active {
+  background-color: #1e3a5f;
+  color: #64b5f6;
+}
+
+.item-card__type--passive {
+  background-color: #2d1b4e;
+  color: #ce93d8;
+}
+
+/* Menú de 3 puntos */
+.item-card__menu-wrapper {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.item-card__menu-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: background 0.1s;
+}
+
+.item-card__menu-btn:hover {
+  background-color: #333;
+  color: #ccc;
+}
+
+/* Dropdown del menú */
+.item-card__menu-dropdown {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  background-color: #2a2a3e;
+  border: 1px solid #444;
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 10;
+  min-width: 120px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.item-card__menu-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: #ddd;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: "Courier New", monospace;
+  transition: background 0.1s;
+}
+
+.item-card__menu-dropdown button:hover {
+  background-color: #3a3a5e;
 }
