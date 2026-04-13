@@ -1,65 +1,59 @@
-/* ============================================
-   Forms.css — estilos del formulario de creación/edición
-   Estilo: pergamino oscuro, medieval digital
-   ============================================ */
+/* Forms.css — formularios de creación y edición */
 
-/* Contenedor del formulario */
 .form-container {
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
-/* Título del formulario */
-.form-title {
-  text-align: center;
-  font-size: 1.6rem;
-  margin-bottom: 8px;
+.wiki-panel .form-container {
+  padding: 0;
 }
 
-/* Formulario */
+.form-title {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
 .item-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin-top: 20px;
+  gap: 16px;
+  margin-top: 18px;
 }
 
-/* Campo individual */
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
-/* Label */
 .form-label {
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--text-muted);
   font-family: "Cinzel", serif;
 }
 
-/* Texto de ayuda */
 .form-hint {
   font-size: 11px;
   color: var(--text-dim);
   line-height: 1.4;
 }
 
-/* Preview de imagen */
+/* Vista previa de imagen */
 .form-icon-preview {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px;
-  background-color: var(--bg-input);
-  border: 1px solid var(--border-mid);
-  border-radius: 4px;
+  padding: 8px;
+  background: var(--wiki-input-bg);
+  border: 1px solid var(--wiki-border-dk);
+  border-radius: 3px;
   width: fit-content;
 }
 
-/* Radio buttons */
+/* Radio */
 .form-radio-group {
   display: flex;
   gap: 20px;
@@ -69,8 +63,8 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 14px;
-  color: var(--text-primary);
+  font-size: 13px;
+  color: var(--text-main);
   cursor: pointer;
 }
 
@@ -81,26 +75,25 @@
   cursor: pointer;
 }
 
-/* Slider de calidad */
+/* Slider calidad */
 .form-range {
   width: 100% !important;
   height: 4px;
   border: none !important;
+  padding: 0 !important;
   background: linear-gradient(
     to right,
-    var(--quality-0) 0%,
-    var(--quality-1) 25%,
-    var(--quality-2) 50%,
-    var(--quality-3) 75%,
-    var(--quality-4) 100%
+    var(--q0) 0%,
+    var(--q1) 25%,
+    var(--q2) 50%,
+    var(--q3) 75%,
+    var(--q4) 100%
   ) !important;
   border-radius: 2px;
-  padding: 0 !important;
-  accent-color: var(--gold);
   cursor: pointer;
+  accent-color: var(--gold);
 }
 
-/* Labels del rango (0 a 4) */
 .form-range-labels {
   display: flex;
   justify-content: space-between;
@@ -109,20 +102,172 @@
   padding: 0 2px;
 }
 
-/* Valor de calidad resaltado */
 .form-quality-value {
   color: var(--gold);
   font-weight: bold;
   font-family: "Share Tech Mono", monospace;
 }
 
-/* Botón de submit */
 .form-submit {
   width: 100%;
-  padding: 14px;
-  font-size: 15px;
+  padding: 13px;
+  font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: "Cinzel", serif;
-  margin-top: 8px;
+  margin-top: 6px;
+}
+
+/* ──────────────────────────
+   PoolSelector — dentro del formulario
+   ────────────────────────── */
+
+.pool-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pool-selector__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  font-family: "Cinzel", serif;
+}
+
+.pool-selector__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Cada card de pool */
+.pool-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 66px;
+  padding: 7px 4px 5px;
+  background: var(--wiki-input-bg);
+  border: 1.5px solid var(--wiki-border-dk);
+  border-radius: 3px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    transform 0.1s;
+  font-family: inherit;
+}
+
+.pool-card:hover {
+  border-color: var(--wiki-border);
+  background: var(--wiki-panel-mid);
+  transform: translateY(-2px);
+}
+
+/* Seleccionada */
+.pool-card--selected {
+  border-color: var(--gold);
+  background: #1a1205;
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+.pool-card--selected .pool-card__name {
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* Agregar */
+.pool-card--add {
+  border-style: dashed;
+  border-color: var(--wiki-border-dk);
+  color: var(--text-dim);
+}
+.pool-card--add:hover {
+  border-color: var(--wiki-border);
+}
+
+.pool-card__icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pool-card__name {
+  font-size: 8px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+  max-width: 58px;
+}
+
+/* Formulario de pool personalizada */
+.pool-selector__custom-form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px;
+  background: var(--wiki-input-bg);
+  border: 1px solid var(--wiki-border-dk);
+  border-radius: 3px;
+}
+
+.pool-selector__custom-input {
+  width: 100%;
+  padding: 7px 9px;
+  background: #0a0704;
+  border: 1px solid var(--wiki-border-dk);
+  border-radius: 3px;
+  color: var(--text-main);
+  font-size: 12px;
+  font-family: inherit;
+  box-sizing: border-box;
+  outline: none;
+}
+.pool-selector__custom-input:focus {
+  border-color: var(--gold);
+}
+.pool-selector__custom-input::placeholder {
+  color: var(--text-dim);
+}
+
+.pool-selector__custom-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pool-btn {
+  flex: 1;
+  padding: 6px;
+  border: none;
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.pool-btn:hover {
+  opacity: 0.85;
+}
+.pool-btn--ok {
+  background: #14230f;
+  color: #81c784;
+}
+.pool-btn--cancel {
+  background: #230f0f;
+  color: #ef9a9a;
+}
+
+.pool-selector__selected {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin: 0;
+}
+.pool-selector__selected strong {
+  color: var(--gold);
 }

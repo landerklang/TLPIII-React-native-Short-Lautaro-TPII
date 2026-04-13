@@ -1,52 +1,55 @@
-/* ============================================
-   App.css — estilo global inspirado en la wiki
-   del Binding of Isaac Rebirth/Repentance
+/* ================================================================
+   App.css — Estilo global inspirado en la wiki de The Binding of Isaac
    
-   Referencia visual: fondo oscuro tipo pergamino antiguo,
-   tipografía medieval, bordes decorativos, iconografía pixel art
-   ============================================ */
+   La wiki usa:
+   - Fondo de ladrillos marrones oscuros
+   - Panel central con borde decorativo color tierra/siena
+   - Tipografía pixel/serif medieval (MedievalSharp / Cinzel)
+   - Acento dorado/naranja para títulos y links
+   - Texto sobre fondo marrón medio para el contenido
+   ================================================================ */
 
-/* Fuentes — Cinzel para títulos (estilo medieval/grabado),
-   Share Tech Mono para datos y stats (estilo terminal/juego) */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Share+Tech+Mono&display=swap");
 
-/* Variables de color — toda la paleta del proyecto */
+/* ─── Variables ─── */
 :root {
-  /* Fondos — capas de oscuro a muy oscuro */
-  --bg-deep: #080810; /* fondo más profundo, casi negro azulado */
-  --bg-base: #0e0e1c; /* fondo principal de la página */
-  --bg-card: #141426; /* fondo de las cartas/paneles */
-  --bg-input: #0a0a18; /* fondo de inputs */
-  --bg-hover: #1e1e36; /* hover suave */
+  /* Fondos inspirados en la wiki */
+  --wiki-brick: #1a1014; /* fondo exterior tipo ladrillo muy oscuro */
+  --wiki-panel: #2b1d14; /* panel de contenido, marrón tierra */
+  --wiki-panel-mid: #3d2a1a; /* secciones internas */
+  --wiki-panel-lt: #4a3322; /* hover y bordes suaves */
+  --wiki-input-bg: #1f1209; /* fondo de inputs */
 
-  /* Bordes */
-  --border-dark: #1e1e36;
-  --border-mid: #2e2e50;
-  --border-gold: #4a3a10;
+  /* Bordes wiki — color tierra envejecida */
+  --wiki-border: #6b4c2a;
+  --wiki-border-dk: #4a3018;
+  --wiki-border-lt: #8b6030;
 
   /* Texto */
-  --text-primary: #e8dcc8; /* casi blanco cálido, como pergamino */
-  --text-muted: #7a7090; /* texto secundario/labels */
-  --text-dim: #4a4466; /* texto muy apagado */
+  --text-main: #e8dcc8; /* blanco cálido pergamino */
+  --text-muted: #9a8870; /* secundario */
+  --text-dim: #5a4830; /* muy apagado */
+  --text-link: #d4af37; /* dorado para links y títulos */
 
-  /* Acento dorado — como el color de las monedas del juego */
+  /* Acento dorado — monedas, calidad legendaria */
   --gold: #d4af37;
   --gold-bright: #f5d060;
   --gold-dark: #8b6914;
+  --gold-glow: rgba(212, 175, 55, 0.25);
 
-  /* Calidades (colores de rareza del juego) */
-  --quality-0: #6b6b6b; /* común — gris */
-  --quality-1: #4a7c4e; /* poco común — verde */
-  --quality-2: #2e5fa3; /* raro — azul */
-  --quality-3: #7b3f9e; /* muy raro — morado */
-  --quality-4: #c0622a; /* legendario — naranja/rojo */
+  /* Calidades */
+  --q0: #888;
+  --q1: #5a9e5a;
+  --q2: #4a7abf;
+  --q3: #9b5abf;
+  --q4: #bf6020;
 
-  /* Acento rojo (salas del diablo, peligro) */
-  --red: #9b2335;
+  /* Acento rojo (Devil Room, peligro) */
+  --red: #9b2020;
   --red-bright: #c0392b;
 }
 
-/* ——— Reset y base ——— */
+/* ─── Reset ─── */
 *,
 *::before,
 *::after {
@@ -54,95 +57,132 @@
   margin: 0;
   padding: 0;
 }
-
 html {
   font-size: 16px;
   scroll-behavior: smooth;
 }
 
+/* ─── Body — fondo tipo ladrillo de la wiki ─── */
 body {
   font-family: "Share Tech Mono", "Courier New", monospace;
-  background-color: var(--bg-base);
-  color: var(--text-primary);
+  color: var(--text-main);
   min-height: 100vh;
 
-  /* Textura de fondo: ruido sutil + gradiente radial central
-     para simular el fondo de la wiki (oscuro con leve luz central) */
-  background-image:
-    radial-gradient(
-      ellipse at 50% 0%,
-      rgba(30, 20, 60, 0.6) 0%,
-      transparent 70%
-    ),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  background-attachment: fixed;
+  /* Fondo de ladrillo: patrón SVG repetido + color base oscuro */
+  background-color: var(--wiki-brick);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Crect width='39' height='9' rx='1' fill='%23231518' stroke='%23140c0f' stroke-width='0.5'/%3E%3Crect y='10' x='20' width='19' height='9' rx='1' fill='%23231518' stroke='%23140c0f' stroke-width='0.5'/%3E%3Crect y='10' width='19' height='9' rx='1' fill='%23231518' stroke='%23140c0f' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
 
-/* ——— Tipografía ——— */
+/* ─── Panel principal — el contenedor con borde wiki ─── */
+/* Envolvé tus páginas en <div className="wiki-panel"> */
+.wiki-panel {
+  background-color: var(--wiki-panel);
+  border: 3px solid var(--wiki-border);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px var(--wiki-border-dk),
+    0 0 0 5px var(--wiki-brick),
+    0 0 0 6px var(--wiki-border-dk),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 24px;
+}
+
+/* ─── Layout de página ─── */
+.page {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* ─── Tipografía ─── */
 h1,
 h2,
 h3 {
-  font-family: "Cinzel", "Palatino Linotype", serif;
-  font-weight: 700;
+  font-family: "Cinzel", "Palatino Linotype", Georgia, serif;
   color: var(--gold);
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
   letter-spacing: 1px;
+  text-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.8),
+    0 0 16px var(--gold-glow);
 }
-
 h1 {
-  font-size: 1.8rem;
+  font-size: 1.75rem;
+  font-weight: 700;
 }
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
-p {
-  line-height: 1.6;
+a {
+  color: var(--gold);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--gold-bright);
+  text-decoration: underline;
 }
 
-/* ——— Inputs y formularios ——— */
+/* ─── Separador wiki — línea horizontal dorada ─── */
+.wiki-divider {
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--wiki-border) 15%,
+    var(--gold-dark) 50%,
+    var(--wiki-border) 85%,
+    transparent
+  );
+  margin: 16px 0;
+}
+
+/* ─── Inputs ─── */
 input[type="text"],
 input[type="number"],
 textarea,
 select {
   width: 100%;
-  padding: 9px 12px;
-  background-color: var(--bg-input);
-  border: 1px solid var(--border-mid);
-  border-radius: 4px;
-  color: var(--text-primary);
-  font-size: 13px;
+  padding: 8px 10px;
+  background-color: var(--wiki-input-bg);
+  border: 1px solid var(--wiki-border-dk);
+  border-radius: 3px;
+  color: var(--text-main);
   font-family: "Share Tech Mono", monospace;
+  font-size: 13px;
   outline: none;
-  transition: border-color 0.2s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
-
-input[type="text"]:focus,
-input[type="number"]:focus,
+input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+  border-color: var(--wiki-border);
+  box-shadow: 0 0 0 2px var(--gold-glow);
 }
-
 input::placeholder {
   color: var(--text-dim);
 }
+select option {
+  background-color: var(--wiki-panel-mid);
+}
 
-/* Input de archivo */
 input[type="file"] {
+  background: none;
+  border: none;
   color: var(--text-muted);
   font-size: 12px;
-  padding: 6px 0;
-  border: none;
-  background: none;
+  padding: 4px 0;
   cursor: pointer;
 }
 
-/* ——— Botones ——— */
+/* ─── Botones ─── */
 button {
   cursor: pointer;
   font-family: "Share Tech Mono", monospace;
@@ -150,78 +190,56 @@ button {
     opacity 0.15s,
     transform 0.1s;
 }
-
 button:active {
   transform: scale(0.97);
 }
 
-/* Botón primario dorado */
 .btn-primary {
   background-color: var(--gold-dark);
   color: var(--gold-bright);
   border: 1px solid var(--gold);
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: bold;
+  padding: 9px 20px;
+  border-radius: 3px;
+  font-family: "Cinzel", serif;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
-
 .btn-primary:hover {
   opacity: 0.9;
 }
 
-/* Botón de volver / secundario */
 .btn-secondary {
   background: none;
-  border: 1px solid var(--border-mid);
+  border: 1px solid var(--wiki-border-dk);
   color: var(--text-muted);
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: 3px;
+  font-size: 12px;
 }
-
 .btn-secondary:hover {
-  border-color: var(--text-muted);
-  color: var(--text-primary);
+  border-color: var(--wiki-border);
+  color: var(--text-main);
 }
 
-/* ——— Layout base de páginas ——— */
-.page {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 32px 16px;
-}
-
-/* ——— Separador decorativo estilo pergamino ——— */
-.divider {
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--border-gold),
-    transparent
-  );
-  margin: 20px 0;
-}
-
-/* ——— Scrollbar personalizada ——— */
+/* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-deep);
+  background: var(--wiki-brick);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-mid);
+  background: var(--wiki-border-dk);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-dark);
+  background: var(--wiki-border);
 }
 
-/* ——— Selección de texto ——— */
+/* ─── Selección de texto ─── */
 ::selection {
-  background-color: rgba(212, 175, 55, 0.2);
+  background: var(--gold-glow);
   color: var(--gold-bright);
 }

@@ -1,6 +1,4 @@
-/* ============================================
-   ItemCard.css — carta de objeto estilo wiki Isaac
-   ============================================ */
+/* ItemCard.css — carta estilo wiki Isaac */
 
 .item-card {
   position: relative;
@@ -8,68 +6,60 @@
   flex-direction: column;
   align-items: center;
   gap: 7px;
-
-  width: 150px;
-  min-height: 190px;
-  padding: 14px 10px 10px;
-
-  background-color: var(--bg-card);
-  border: 1.5px solid var(--border-mid);
-  border-radius: 6px;
+  width: 144px;
+  min-height: 185px;
+  padding: 13px 9px 9px;
+  background-color: var(--wiki-panel-mid);
+  border: 1.5px solid var(--wiki-border-dk);
+  border-radius: 4px;
   cursor: pointer;
-
-  /* El color de calidad se pasa como variable CSS desde el componente */
-  --quality-color: #6b6b6b;
-
+  --qcolor: #888;
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s;
+    transform 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .item-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--quality-color);
+  transform: translateY(-3px);
+  border-color: var(--qcolor);
   box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.5),
-    0 0 8px rgba(var(--quality-color), 0.2);
+    0 6px 18px rgba(0, 0, 0, 0.6),
+    0 0 6px color-mix(in srgb, var(--qcolor) 40%, transparent);
 }
 
-/* Barra de calidad en la parte superior — usa la variable de color */
-.item-card__quality-bar {
+/* Barra de calidad */
+.item-card__qbar {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
-  border-radius: 5px 5px 0 0;
-  background-color: var(--quality-color);
-  opacity: 0.8;
+  border-radius: 3px 3px 0 0;
+  background-color: var(--qcolor);
 }
 
-/* Contenedor del ícono */
+/* Ícono */
 .item-card__icon {
-  width: 60px;
-  height: 60px;
-  background-color: #0a0a14;
-  border: 1px solid var(--border-dark);
-  border-radius: 4px;
+  width: 56px;
+  height: 56px;
+  background-color: #0e0a06;
+  border: 1px solid var(--wiki-border-dk);
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   margin-top: 4px;
 }
-
 .item-card__icon img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   image-rendering: pixelated;
 }
-
-.item-card__icon-placeholder {
-  font-size: 26px;
+.item-card__initial {
+  font-size: 24px;
   font-weight: bold;
   color: var(--text-dim);
   font-family: "Cinzel", serif;
@@ -77,46 +67,30 @@
 
 /* Nombre */
 .item-card__name {
-  font-size: 12px;
-  font-family: "Cinzel", "Palatino Linotype", serif;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-size: 11px;
+  font-family: "Cinzel", serif;
+  color: var(--text-main);
   text-align: center;
   line-height: 1.3;
   margin: 0;
 }
 
-/* Pool con ícono */
+/* Pool */
 .item-card__pool {
   display: flex;
   align-items: center;
   gap: 4px;
-  max-width: 100%;
-}
-
-.item-card__pool-icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-}
-
-.item-card__pool-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.item-card__pool-name {
   font-size: 9px;
   color: var(--text-muted);
+  max-width: 130px;
+}
+.item-card__pool span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100px;
 }
 
-/* Footer — tipo y calidad */
+/* Footer */
 .item-card__footer {
   display: flex;
   align-items: center;
@@ -125,27 +99,25 @@
   padding: 0 4px;
   margin-top: auto;
 }
-
-.item-card__type {
-  font-size: 14px;
+.item-card__type-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.85;
 }
-
-/* Punto de calidad */
-.item-card__quality-dot {
+.item-card__qdot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--quality-color);
-  box-shadow: 0 0 4px var(--quality-color);
+  background-color: var(--qcolor);
+  box-shadow: 0 0 5px var(--qcolor);
 }
 
-/* Menú de 3 puntos */
+/* Menú */
 .item-card__menu-wrapper {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 5px;
+  right: 5px;
 }
-
 .item-card__menu-btn {
   background: none;
   border: none;
@@ -153,46 +125,41 @@
   font-size: 16px;
   cursor: pointer;
   padding: 0 3px;
+  border-radius: 2px;
   line-height: 1;
-  border-radius: 3px;
   transition:
     background 0.1s,
     color 0.1s;
 }
-
 .item-card__menu-btn:hover {
-  background-color: var(--bg-hover);
+  background: var(--wiki-panel-lt);
   color: var(--text-muted);
 }
-
-/* Dropdown */
 .item-card__dropdown {
   position: absolute;
-  top: 22px;
+  top: 20px;
   right: 0;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-mid);
-  border-radius: 5px;
-  overflow: hidden;
   z-index: 20;
-  min-width: 120px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  background: var(--wiki-panel);
+  border: 1px solid var(--wiki-border-dk);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 110px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
 }
-
 .item-card__dropdown button {
   display: block;
   width: 100%;
-  padding: 8px 12px;
+  padding: 7px 11px;
   background: none;
   border: none;
-  color: var(--text-primary);
+  color: var(--text-main);
   text-align: left;
   font-size: 12px;
   font-family: "Share Tech Mono", monospace;
   cursor: pointer;
   transition: background 0.1s;
 }
-
 .item-card__dropdown button:hover {
-  background-color: var(--bg-hover);
+  background: var(--wiki-panel-lt);
 }

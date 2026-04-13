@@ -1,41 +1,55 @@
-/* ============================================
-   Homepage.css
-   ============================================ */
+/* Homepage.css */
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 
 .homepage__header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-end;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+.homepage__title-block h1 {
+  margin-bottom: 4px;
 }
 
 .homepage__subtitle {
   font-size: 12px;
   color: var(--text-muted);
-  margin-top: 4px;
   font-family: "Share Tech Mono", monospace;
+}
+
+.homepage__search-panel {
+  padding: 12px 18px;
+}
+
+.homepage__content {
+  min-height: 300px;
 }
 
 /* Grid de cartas */
 .homepage__grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 20px;
+  gap: 12px;
+  padding: 4px;
 }
 
-.homepage__loading,
-.homepage__empty {
+/* Estado vacío / cargando */
+.homepage__state {
   text-align: center;
   color: var(--text-muted);
   font-size: 14px;
-  padding: 60px 0;
-  width: 100%;
+  padding: 60px 20px;
 }
 
-.homepage__empty-hint {
-  margin-top: 8px;
+.homepage__state-hint {
+  margin-top: 6px;
   font-size: 12px;
   color: var(--text-dim);
 }

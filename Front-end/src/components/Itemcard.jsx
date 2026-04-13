@@ -1,32 +1,27 @@
 import { useNavigate } from "react-router-dom";
-import { DEFAULT_POOLS } from "./Pools.jsx";
+import { DEFAULT_POOLS } from "../data/pools.jsx";
+import { ActiveIcon, PassiveIcon } from "../icons/isaacIcons.jsx";
 import "../styles/ItemCard.css";
 
-// Mapa de quality a color (usando las variables CSS)
-const QUALITY_COLORS = ["#6b6b6b", "#4a7c4e", "#2e5fa3", "#7b3f9e", "#c0622a"];
-const QUALITY_LABELS = [
-  "Común",
-  "Poco común",
-  "Raro",
-  "Muy raro",
-  "Legendario",
-];
+// Colores de calidad del juego
+const Q_COLORS = ["#888", "#5a9e5a", "#4a7abf", "#9b5abf", "#bf6020"];
+const Q_LABELS = ["Común", "Poco común", "Raro", "Muy raro", "Legendario"];
 
-// Busca el ícono SVG de la pool por nombre
+// Busca el componente ícono de la pool por nombre
 const getPoolIcon = (poolName) => {
-  const pool = DEFAULT_POOLS.find(
-    (p) => p.name.toLowerCase() === poolName?.toLowerCase(),
+  const p = DEFAULT_POOLS.find(
+    (pool) => pool.name.toLowerCase() === poolName?.toLowerCase(),
   );
-  return pool?.icon ?? null;
+  return p ? p.Icon : null;
 };
 
 export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
   const navigate = useNavigate();
-  const qualityColor = QUALITY_COLORS[item.Quality] ?? "#6b6b6b";
-  const qualityLabel = QUALITY_LABELS[item.Quality] ?? "Desconocido";
-  const poolIcon = getPoolIcon(item.Pool);
+  const qColor = Q_COLORS[item.Quality] ?? "#888";
+  const qLabel = Q_LABELS[item.Quality] ?? "?";
+  const PoolIcon = getPoolIcon(item.Pool);
 
-  const handleCardClick = (e) => {
+  const handleClick = (e) => {
     if (e.target.closest(".item-card__menu-wrapper")) return;
     navigate(`/item/${item.id}`);
   };
@@ -34,18 +29,18 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
   return (
     <div
       className="item-card"
-      onClick={handleCardClick}
-      style={{ "--quality-color": qualityColor }}
+      onClick={handleClick}
+      style={{ "--qcolor": qColor }}
     >
-      {/* Barra de calidad superior */}
-      <div className="item-card__quality-bar" />
+      {/* Barra de calidad */}
+      <div className="item-card__qbar" />
 
       {/* Ícono del objeto */}
       <div className="item-card__icon">
         {item.Icon ? (
           <img src={item.Icon} alt={item.Name} />
         ) : (
-          <span className="item-card__icon-placeholder">
+          <span className="item-card__initial">
             {item.Name?.charAt(0).toUpperCase()}
           </span>
         )}
@@ -54,25 +49,28 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
       {/* Nombre */}
       <h3 className="item-card__name">{item.Name}</h3>
 
-      {/* Pool con ícono */}
+      {/* Pool con ícono pixel art */}
       {item.Pool && (
         <div className="item-card__pool">
-          {poolIcon && <span className="item-card__pool-icon">{poolIcon}</span>}
-          <span className="item-card__pool-name">{item.Pool}</span>
+          {PoolIcon && <PoolIcon size={16} />}
+          <span>{item.Pool}</span>
         </div>
       )}
 
-      {/* Tipo + Calidad */}
+      {/* Footer — tipo con ícono pixel art + punto de calidad */}
       <div className="item-card__footer">
-        <span
-          className={`item-card__type item-card__type--${item.Typeitem?.toLowerCase()}`}
-        >
-          {item.Typeitem === "Active" ? "⚡" : "✨"}
-        </span>
-        <span className="item-card__quality-dot" title={qualityLabel} />
+        {/* CAMBIO: en vez de emojis ⚡/✨ usamos los íconos SVG del juego */}
+        <div className="item-card__type-icon" title={item.Typeitem}>
+          {item.Typeitem === "Active" ? (
+            <ActiveIcon size={18} />
+          ) : (
+            <PassiveIcon size={18} />
+          )}
+        </div>
+        <span className="item-card__qdot" title={qLabel} />
       </div>
 
-      {/* Menú de 3 puntos */}
+      {/* Menú */}
       <div className="item-card__menu-wrapper">
         <button
           className="item-card__menu-btn"
@@ -83,6 +81,7 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
         >
           ⋮
         </button>
+
         {mostrarMenu === item.id && (
           <div className="item-card__dropdown">
             <button
@@ -91,7 +90,7 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
                 navigate(`/edit/${item.id}`);
               }}
             >
-              ✏️ Editar
+              Editar
             </button>
             <button
               onClick={(e) => {
@@ -99,7 +98,7 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
                 onDelete(item.id);
               }}
             >
-              🗑️ Eliminar
+              Eliminar
             </button>
           </div>
         )}
