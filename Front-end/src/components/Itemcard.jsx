@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { DEFAULT_POOLS } from "./pools.jsx";
+import { DEFAULT_POOLS } from "./Pools.jsx";
 import { ActiveIcon, PassiveIcon } from "./Isaacicons.jsx";
 import "../styles/ItemCard.css";
 
