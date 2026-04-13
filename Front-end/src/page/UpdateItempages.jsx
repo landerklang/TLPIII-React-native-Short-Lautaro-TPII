@@ -1,6 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+const POOLS = [
+  "Treasure Room",
+  "Devil Room",
+  "Angel Room",
+  "Secret Room",
+  "Shop",
+  "Boss Room",
+  "Curse Room",
+  "Library",
+  "Beggar",
+  "Golden Chest",
+  "Red Chest",
+  "Greed Mode",
+];
 export const EditItemPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -12,6 +26,8 @@ export const EditItemPage = () => {
     Quote: "",
     Description: "",
     Quality: 0,
+    Pools: "",
+    Interactions: "",
   });
 
   const loadItem = async () => {
@@ -24,11 +40,13 @@ export const EditItemPage = () => {
 
       setForm({
         Name: data.item.Name,
-        Icon: data.item.Icon,
+        Icon: data.item.Icon || "",
         Typeitem: data.item.Typeitem,
         Quote: data.item.Quote,
         Description: data.item.Description,
         Quality: data.item.Quality,
+        Pool: data.item.Pool || "",
+        Interactions: data.item.Interactions || "",
       });
     } catch (error) {
       console.log("Error al cargar item: " + error);
@@ -37,11 +55,20 @@ export const EditItemPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleImag = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setForm((prev) => ({ ...prev, Icon: reader.result }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleUpdate = async (e) => {
@@ -85,12 +112,18 @@ export const EditItemPage = () => {
           placeholder="Nombre"
         />
 
+        {form.Icon && (
+          <img
+            src={form.Icon}
+            alt="icono del objeto"
+            style={{ width: 64, height: 64, objectFit: "contain" }}
+          />
+        )}
         <input
-          type="text"
+          type="file"
           name="Icon"
           value={form.Icon}
-          onChange={handleChange}
-          placeholder="Icono"
+          onChange={handleImag}
         />
 
         <input
@@ -137,6 +170,25 @@ export const EditItemPage = () => {
           />
           Pasivo
         </div>
+
+        <label>Pool:</label>
+        <select name="Pool" value={form.Pools} onChange={handleChange}>
+          <option value="">-- seleccionar la pool para el objeto --</option>
+          {POOLS.map((pool) => (
+            <option key={pool} value={pool}>
+              {pool}
+            </option>
+          ))}
+        </select>
+
+        <label>interacciones (separado con coma):</label>
+        <input
+          type="text"
+          name="Interactions"
+          value={form.Interactions}
+          onChange={handleChange}
+          placeholder="ej:guppy tail,godhead"
+        />
 
         <button type="submit">Guardar cambios</button>
       </form>
