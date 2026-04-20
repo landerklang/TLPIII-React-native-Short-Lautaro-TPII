@@ -54,9 +54,16 @@ export const Homepages = () => {
     return matchesSearch && matchesType;
   });
 
-  useEffect(() => {
-    loadAllData();
-  }, []);
+  // si es solamente uno se hace de esta forma para que ademas no se repita cada ves que se añadie un cambio en las funcionse
+  useEffect(loadAllData, []);
+
+  // si se añadie un valor al segundo parametro el useEffect se activara denuevo
+  // useEffect(loadAllData, [item]);
+
+  // este se utiliza si hay mas de una funciona a utilizar
+  // useEffect(() => {
+  //   loadAllData();
+  // }, []);
 
   return (
     <div className="page homepage">
