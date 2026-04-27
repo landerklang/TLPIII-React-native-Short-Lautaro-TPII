@@ -55,7 +55,9 @@ export const Homepages = () => {
   });
 
   // si es solamente uno se hace de esta forma para que ademas no se repita cada ves que se añadie un cambio en las funcionse
-  useEffect(loadAllData, []);
+  useEffect(() => {
+    loadAllData();
+  }, []);
 
   // si se añadie un valor al segundo parametro el useEffect se activara denuevo
   // useEffect(loadAllData, [item]);
