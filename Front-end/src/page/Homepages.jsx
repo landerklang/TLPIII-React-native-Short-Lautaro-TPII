@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ItemCard } from "../components/Itemcard.jsx";
 import { SearchBar } from "../components/SearchBar.jsx";
 import "../styles/Homepages.css";
+import { FavoritoContext } from "../context/FavoritoContext.jsx";
 
 export const Homepages = () => {
   const [Item, setItem] = useState([]);
@@ -10,6 +11,15 @@ export const Homepages = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [typeFilter, setTypeFilter] = useState("all");
+  const { favorito } = useContext(FavoritoContext);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const id = e.target.value;
+    if (id) {
+      navigate(`/item/${id}`);
+    }
+  };
 
   const loadAllData = async () => {
     try {
@@ -39,10 +49,6 @@ export const Homepages = () => {
     }
   };
 
-  // const filtered = Item.filter((item) =>
-  //   item.Name?.toLowerCase().includes(search.toLowerCase()),
-  // );
-
   const filteredItems = Item.filter((item) => {
     const matchesSearch = item.Name?.toLowerCase().includes(
       search.toLowerCase(),
@@ -53,7 +59,6 @@ export const Homepages = () => {
 
     return matchesSearch && matchesType;
   });
-
   // si es solamente uno se hace de esta forma para que ademas no se repita cada ves que se añadie un cambio en las funcionse
   useEffect(() => {
     loadAllData();
@@ -79,9 +84,14 @@ export const Homepages = () => {
           </p>
         </div>
         <div className="header-actions">
-          {/* <select>
-            mis favo
-          </select> */}
+          <select onChange={handleChange}>
+            <option value="">Favoritos</option>
+            {favorito.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.Name}
+              </option>
+            ))}
+          </select>
           <select
             className="filter-select"
             value={typeFilter}
