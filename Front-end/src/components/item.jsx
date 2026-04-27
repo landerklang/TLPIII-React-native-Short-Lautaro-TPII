@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FavoritoContext } from "../context/FavoritoContext";
+import { FavoritoContext } from "../context/FavoritoProvider";
 
 function Item({ item }) {
   const { agregarFavorito } = useContext(FavoritoContext);
@@ -10,7 +10,7 @@ function Item({ item }) {
         agregarFavorito(item);
       }}
     >
-      agregar a favoritos
+      agregar a Favorito
     </button>
   );
 }

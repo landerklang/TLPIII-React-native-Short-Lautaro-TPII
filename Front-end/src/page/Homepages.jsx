@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ItemCard } from "../components/Itemcard.jsx";
 import { SearchBar } from "../components/SearchBar.jsx";
 import "../styles/Homepages.css";
-import { FavoritoContext } from "../context/FavoritoContext.jsx";
+import { FavoritoContext } from "../context/FavoritoProvider.jsx";
 
 export const Homepages = () => {
   const [Item, setItem] = useState([]);
