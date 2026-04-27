@@ -79,6 +79,9 @@ export const Homepages = () => {
           </p>
         </div>
         <div className="header-actions">
+          {/* <select>
+            mis favo
+          </select> */}
           <select
             className="filter-select"
             value={typeFilter}

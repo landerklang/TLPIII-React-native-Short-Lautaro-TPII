@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { DEFAULT_POOLS } from "./Pools.jsx";
 import { ActiveIcon, PassiveIcon } from "./Isaacicons.jsx";
 import "../styles/ItemCard.css";
-import item from "./item.jsx";
+import Item from "./item.jsx";
 
 // Colores de calidad del juego
 const Q_COLORS = ["#888", "#5a9e5a", "#4a7abf", "#9b5abf", "#bf6020"];
@@ -18,6 +18,7 @@ const getPoolIcon = (poolName) => {
 
 export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
   const navigate = useNavigate();
+
   const qColor = Q_COLORS[item.Quality] ?? "#888";
   const qLabel = Q_LABELS[item.Quality] ?? "?";
   const PoolIcon = getPoolIcon(item.Pool);
@@ -101,7 +102,7 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
             >
               Eliminar
             </button>
-            <button onClick={() => item(item)}>Añadir a favorito</button>
+            <Item item={item} />
           </div>
         )}
       </div>

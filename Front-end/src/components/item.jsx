@@ -1,11 +1,18 @@
 import { useContext } from "react";
-import { Favoritocontext } from "../context/FavoritoContext";
+import { FavoritoContext } from "../context/FavoritoContext";
 
-function item({ item }) {
-  const { agregarFavorito } = useContext(Favoritocontext);
+function Item({ item }) {
+  const { agregarFavorito } = useContext(FavoritoContext);
   return (
-    <button onClick={() => agregarFavorito(item)}>agregar a favoritos</button>
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        agregarFavorito(item);
+      }}
+    >
+      agregar a favoritos
+    </button>
   );
 }
 
-export default item;
+export default Item;

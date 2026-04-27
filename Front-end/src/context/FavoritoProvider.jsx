@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { Favoritocontext } from "./FavoritoContext.jsx";
+import { FavoritoContext } from "./FavoritoContext.jsx";
 
 export function FavoritoProvider({ children }) {
   const [favorito, setfavorito] = useState([]);
 
-  function agregarFavorito() {
-    setfavorito([...favorito, item]);
+  function agregarFavorito(item) {
+    setfavorito((favorito) => {
+      return [...favorito, item];
+    });
+    console.log([...favorito, item]);
   }
 
   return (
-    <Favoritocontext.Provider value={{ favorito, agregarFavorito }}>
+    <FavoritoContext.Provider value={{ favorito, agregarFavorito }}>
       {children}
-    </Favoritocontext.Provider>
+    </FavoritoContext.Provider>
   );
 }
