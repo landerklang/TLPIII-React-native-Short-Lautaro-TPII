@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { FavoritoContext } from "./FavoritoContext.jsx";
 
 export const FavoritoContext = createContext;
 
@@ -14,7 +13,7 @@ export function FavoritoProvider({ children }) {
   }
 
   function quitarFavorito(id) {
-    setfavorito(favorito.filter((fav) => fav.id !== id));
+    setfavorito((prev) => prev.filter((fav) => fav.id !== id));
   }
 
   return (

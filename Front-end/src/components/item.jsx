@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FavoritoContext } from "../context/FavoritoProvider";
+import { FavoritoContext } from "../context/FavoritoProvider.jsx";
 
 function Item({ item }) {
   const { agregarFavorito } = useContext(FavoritoContext);

@@ -12,6 +12,7 @@ export const Homepages = () => {
   const [loading, setLoading] = useState(true);
   const [typeFilter, setTypeFilter] = useState("all");
   const { favorito } = useContext(FavoritoContext);
+  console.log(favorito);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
