@@ -1,19 +1,23 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
+import {
+  FavoritoReduce,
+  AgregarFavorito,
+  QuitarFavorito,
+} from "./FavoritoReducer.jsx";
 
 export const FavoritoContext = createContext();
 
 export function FavoritoProvider({ children }) {
-  const [favorito, setfavorito] = useState([]);
+  const [favorito, setfavorito] = useReducer(FavoritoReduce, []);
 
   function agregarFavorito(item) {
-    setfavorito((favorito) => {
-      return [...favorito, item];
-    });
+    setfavorito({ type: AgregarFavorito, payload: item });
     console.log([...favorito, item]);
   }
 
   function quitarFavorito(id) {
-    setfavorito((prev) => prev.filter((fav) => fav.id !== id));
+    setfavorito({ type: QuitarFavorito, payload: id });
+    console.log("se quito:", id);
   }
 
   return (

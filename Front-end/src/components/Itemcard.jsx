@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { DEFAULT_POOLS } from "./Pools.jsx";
 import { ActiveIcon, PassiveIcon } from "./Isaacicons.jsx";
 import "../styles/ItemCard.css";
-import { Añadirfavorito } from "./item.jsx";
+import { useContext, useState } from "react";
+import { FavoritoContext } from "../context/FavoritoProvider.jsx";
 
 // Colores de calidad del juego
 const Q_COLORS = ["#888", "#5a9e5a", "#4a7abf", "#9b5abf", "#bf6020"];
@@ -17,11 +18,24 @@ const getPoolIcon = (poolName) => {
 };
 
 export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
+  const { quitarFavorito, agregarFavorito } = useContext(FavoritoContext);
+  const [mark, setmark] = useState({ id: "", favorit: false });
+
   const navigate = useNavigate();
 
   const qColor = Q_COLORS[item.Quality] ?? "#888";
   const qLabel = Q_LABELS[item.Quality] ?? "?";
   const PoolIcon = getPoolIcon(item.Pool);
+
+  const handleQuitarfavorito = () => {
+    quitarFavorito(item.id);
+    setmark({ favorit: false });
+  };
+
+  const handleAgregarFavorito = () => {
+    agregarFavorito(item);
+    setmark({ favorit: true });
+  };
 
   const handleClick = (e) => {
     if (e.target.closest(".item-card__menu-wrapper")) return;
@@ -102,7 +116,24 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
             >
               Eliminar
             </button>
-            <Añadirfavorito item={item} />
+
+            {mark.favorit == false ? (
+              <button
+                onClick={(e) => {
+                  (e.stopPropagation(), handleAgregarFavorito());
+                }}
+              >
+                Agregar favorito
+              </button>
+            ) : (
+              <button
+                onClick={(e) => {
+                  (e.stopPropagation(), handleQuitarfavorito());
+                }}
+              >
+                Quitar favorito
+              </button>
+            )}
           </div>
         )}
       </div>
