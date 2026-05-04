@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export const FavoritoContext = createContext;
+export const FavoritoContext = createContext();
 
 export function FavoritoProvider({ children }) {
   const [favorito, setfavorito] = useState([]);

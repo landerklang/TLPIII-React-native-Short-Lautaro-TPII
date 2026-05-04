@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { DEFAULT_POOLS } from "./Pools.jsx";
 import { ActiveIcon, PassiveIcon } from "./Isaacicons.jsx";
 import "../styles/ItemCard.css";
-import Item from "./item.jsx";
+import { Añadirfavorito } from "./item.jsx";
 
 // Colores de calidad del juego
 const Q_COLORS = ["#888", "#5a9e5a", "#4a7abf", "#9b5abf", "#bf6020"];
@@ -102,7 +102,7 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
             >
               Eliminar
             </button>
-            <Item item={item} />
+            <Añadirfavorito item={item} />
           </div>
         )}
       </div>

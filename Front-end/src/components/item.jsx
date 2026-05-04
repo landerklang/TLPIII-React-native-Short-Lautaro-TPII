@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FavoritoContext } from "../context/FavoritoProvider.jsx";
 
-function Item({ item }) {
+export function Añadirfavorito({ item }) {
   const { agregarFavorito } = useContext(FavoritoContext);
   return (
     <button
@@ -10,9 +10,8 @@ function Item({ item }) {
         agregarFavorito(item);
       }}
     >
-      agregar a Favorito
+      Agregar a Favorito
     </button>
   );
 }
-
-export default Item;
+export function 
