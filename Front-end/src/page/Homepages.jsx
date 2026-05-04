@@ -84,14 +84,16 @@ export const Homepages = () => {
           </p>
         </div>
         <div className="header-actions">
-          <select onChange={handleChange}>
-            <option value="">Favoritos</option>
-            {favorito.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.Name}
-              </option>
-            ))}
-          </select>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <select onChange={handleChange}>
+              <option value="">Favoritos</option>
+              {favorito.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.nombreGuardado || item.Name}
+                </option>
+              ))}
+            </select>
+          </div>
           <select
             className="filter-select"
             value={typeFilter}

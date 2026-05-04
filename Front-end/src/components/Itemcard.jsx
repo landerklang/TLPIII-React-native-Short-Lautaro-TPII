@@ -18,8 +18,9 @@ const getPoolIcon = (poolName) => {
 };
 
 export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
-  const { quitarFavorito, agregarFavorito } = useContext(FavoritoContext);
-  const [mark, setmark] = useState({ id: "", favorit: false });
+  const { quitarFavorito, agregarFavorito, favorito } =
+    useContext(FavoritoContext);
+  const FavoritoLista = favorito.some((fav) => fav.id === item.id);
 
   const navigate = useNavigate();
 
@@ -27,15 +28,30 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
   const qLabel = Q_LABELS[item.Quality] ?? "?";
   const PoolIcon = getPoolIcon(item.Pool);
 
+  const handlePersonalizado = () => {
+    const nombrePersonalizado = prompt(
+      `¿Cómo quieres guardar "${item.Name}" en favoritos?\n\n` +
+        `- Deja vacío para usar el nombre original\n` +
+        `- Escribe un nombre personalizado`,
+      item.Name,
+    );
+    if (nombrePersonalizado === null) return;
+    const nombrefinal =
+      nombrePersonalizado.trim() === ""
+        ? item.Name
+        : nombrePersonalizado.trim();
+    agregarFavorito(item, nombrefinal);
+  };
+
   const handleQuitarfavorito = () => {
     quitarFavorito(item.id);
-    setmark({ favorit: false });
   };
 
   const handleAgregarFavorito = () => {
     agregarFavorito(item);
-    setmark({ favorit: true });
   };
+
+  const handleEditarFavorito = () => {};
 
   const handleClick = (e) => {
     if (e.target.closest(".item-card__menu-wrapper")) return;
@@ -117,21 +133,21 @@ export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
               Eliminar
             </button>
 
-            {mark.favorit == false ? (
-              <button
-                onClick={(e) => {
-                  (e.stopPropagation(), handleAgregarFavorito());
-                }}
-              >
-                Agregar favorito
-              </button>
-            ) : (
+            {FavoritoLista ? (
               <button
                 onClick={(e) => {
                   (e.stopPropagation(), handleQuitarfavorito());
                 }}
               >
                 Quitar favorito
+              </button>
+            ) : (
+              <button
+                onClick={(e) => {
+                  (e.stopPropagation(), handlePersonalizado());
+                }}
+              >
+                Agregar favorito
               </button>
             )}
           </div>

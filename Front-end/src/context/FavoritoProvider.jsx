@@ -10,9 +10,18 @@ export const FavoritoContext = createContext();
 export function FavoritoProvider({ children }) {
   const [favorito, setfavorito] = useReducer(FavoritoReduce, []);
 
-  function agregarFavorito(item) {
-    setfavorito({ type: AgregarFavorito, payload: item });
+  function agregarFavorito(item, nombrePersonalizado) {
+    const nuevoItem = {
+      ...item,
+      nombreGuardado: nombrePersonalizado || item.name,
+      originName: item.name,
+    };
+    setfavorito({ type: AgregarFavorito, payload: nuevoItem });
     console.log([...favorito, item]);
+  }
+
+  function editarFavorito(item) {
+    setfavorito({ type: QuitarFavorito, payload: item });
   }
 
   function quitarFavorito(id) {
@@ -22,7 +31,7 @@ export function FavoritoProvider({ children }) {
 
   return (
     <FavoritoContext.Provider
-      value={{ favorito, agregarFavorito, quitarFavorito }}
+      value={{ favorito, agregarFavorito, quitarFavorito, editarFavorito }}
     >
       {children}
     </FavoritoContext.Provider>
