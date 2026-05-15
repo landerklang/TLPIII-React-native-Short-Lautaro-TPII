@@ -20,7 +20,7 @@ import {
   BeggarIcon,
   CustomPoolIcon,
   AddIcon,
-} from "./Isaacicons.jsx";
+} from "./Issacicons.jsx";
 
 export const DEFAULT_POOLS = [
   { id: "treasure", name: "Treasure Room", Icon: TreasureIcon },

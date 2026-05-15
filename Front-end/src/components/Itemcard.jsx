@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { DEFAULT_POOLS } from "./Pools.jsx";
-import { ActiveIcon, PassiveIcon } from "./Isaacicons.jsx";
+import { ActiveIcon, PassiveIcon } from "./Issacicons.jsx";
 import "../styles/ItemCard.css";
 import { useContext, useState } from "react";
 import { FavoritoContext } from "../context/FavoritoProvider.jsx";
@@ -18,6 +18,7 @@ const getPoolIcon = (poolName) => {
 };
 
 export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
+  console.log("ItemCard");
   const { quitarFavorito, agregarFavorito, favorito } =
     useContext(FavoritoContext);
   const FavoritoLista = favorito.some((fav) => fav.id === item.id);
