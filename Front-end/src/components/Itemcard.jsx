@@ -4,6 +4,7 @@ import { ActiveIcon, PassiveIcon } from "./Issacicons.jsx";
 import "../styles/ItemCard.css";
 import { useContext, useState } from "react";
 import { FavoritoContext } from "../context/FavoritoProvider.jsx";
+import { memo } from "react";
 
 // Colores de calidad del juego
 const Q_COLORS = ["#888", "#5a9e5a", "#4a7abf", "#9b5abf", "#bf6020"];
@@ -17,143 +18,145 @@ const getPoolIcon = (poolName) => {
   return p ? p.Icon : null;
 };
 
-export const ItemCard = ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
-  console.log("ItemCard");
-  const { quitarFavorito, agregarFavorito, favorito } =
-    useContext(FavoritoContext);
-  const FavoritoLista = favorito.some((fav) => fav.id === item.id);
+export const ItemCard = memo(
+  ({ item, mostrarMenu, setMostrarMenu, onDelete }) => {
+    console.log("ItemCard");
+    const { quitarFavorito, agregarFavorito, favorito } =
+      useContext(FavoritoContext);
+    const FavoritoLista = favorito.some((fav) => fav.id === item.id);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const qColor = Q_COLORS[item.Quality] ?? "#888";
-  const qLabel = Q_LABELS[item.Quality] ?? "?";
-  const PoolIcon = getPoolIcon(item.Pool);
+    const qColor = Q_COLORS[item.Quality] ?? "#888";
+    const qLabel = Q_LABELS[item.Quality] ?? "?";
+    const PoolIcon = getPoolIcon(item.Pool);
 
-  const handlePersonalizado = () => {
-    const nombrePersonalizado = prompt(
-      `¿Cómo quieres guardar "${item.Name}" en favoritos?\n\n` +
-        `- Deja vacío para usar el nombre original\n` +
-        `- Escribe un nombre personalizado`,
-      item.Name,
-    );
-    if (nombrePersonalizado === null) return;
-    const nombrefinal =
-      nombrePersonalizado.trim() === ""
-        ? item.Name
-        : nombrePersonalizado.trim();
-    agregarFavorito(item, nombrefinal);
-  };
+    const handlePersonalizado = () => {
+      const nombrePersonalizado = prompt(
+        `¿Cómo quieres guardar "${item.Name}" en favoritos?\n\n` +
+          `- Deja vacío para usar el nombre original\n` +
+          `- Escribe un nombre personalizado`,
+        item.Name,
+      );
+      if (nombrePersonalizado === null) return;
+      const nombrefinal =
+        nombrePersonalizado.trim() === ""
+          ? item.Name
+          : nombrePersonalizado.trim();
+      agregarFavorito(item, nombrefinal);
+    };
 
-  const handleQuitarfavorito = () => {
-    quitarFavorito(item.id);
-  };
+    const handleQuitarfavorito = () => {
+      quitarFavorito(item.id);
+    };
 
-  const handleAgregarFavorito = () => {
-    agregarFavorito(item);
-  };
+    const handleAgregarFavorito = () => {
+      agregarFavorito(item);
+    };
 
-  const handleEditarFavorito = () => {};
+    const handleEditarFavorito = () => {};
 
-  const handleClick = (e) => {
-    if (e.target.closest(".item-card__menu-wrapper")) return;
-    navigate(`/item/${item.id}`);
-  };
+    const handleClick = (e) => {
+      if (e.target.closest(".item-card__menu-wrapper")) return;
+      navigate(`/item/${item.id}`);
+    };
 
-  return (
-    <div
-      className="item-card"
-      onClick={handleClick}
-      style={{ "--qcolor": qColor }}
-    >
-      {/* Barra de calidad */}
-      <div className="item-card__qbar" />
+    return (
+      <div
+        className="item-card"
+        onClick={handleClick}
+        style={{ "--qcolor": qColor }}
+      >
+        {/* Barra de calidad */}
+        <div className="item-card__qbar" />
 
-      {/* Ícono del objeto */}
-      <div className="item-card__icon">
-        {item.Icon ? (
-          <img src={item.Icon} alt={item.Name} />
-        ) : (
-          <span className="item-card__initial">
-            {item.Name?.charAt(0).toUpperCase()}
-          </span>
-        )}
-      </div>
-
-      {/* Nombre */}
-      <h3 className="item-card__name">{item.Name}</h3>
-
-      {/* Pool con ícono pixel art */}
-      {item.Pool && (
-        <div className="item-card__pool">
-          {PoolIcon && <PoolIcon size={16} />}
-          <span>{item.Pool}</span>
-        </div>
-      )}
-
-      {/* Footer — tipo con ícono pixel art + punto de calidad */}
-      <div className="item-card__footer">
-        {/* CAMBIO: en vez de emojis ⚡/✨ usamos los íconos SVG del juego */}
-        <div className="item-card__type-icon" title={item.Typeitem}>
-          {item.Typeitem === "Active" ? (
-            <ActiveIcon size={18} />
+        {/* Ícono del objeto */}
+        <div className="item-card__icon">
+          {item.Icon ? (
+            <img src={item.Icon} alt={item.Name} />
           ) : (
-            <PassiveIcon size={18} />
+            <span className="item-card__initial">
+              {item.Name?.charAt(0).toUpperCase()}
+            </span>
           )}
         </div>
-        <span className="item-card__qdot" title={qLabel} />
-      </div>
 
-      {/* Menú */}
-      <div className="item-card__menu-wrapper">
-        <button
-          className="item-card__menu-btn"
-          onClick={(e) => {
-            e.stopPropagation();
-            setMostrarMenu(mostrarMenu === item.id ? null : item.id);
-          }}
-        >
-          ⋮
-        </button>
+        {/* Nombre */}
+        <h3 className="item-card__name">{item.Name}</h3>
 
-        {mostrarMenu === item.id && (
-          <div className="item-card__dropdown">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/edit/${item.id}`);
-              }}
-            >
-              Editar
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onDelete(item.id);
-              }}
-            >
-              Eliminar
-            </button>
-
-            {FavoritoLista ? (
-              <button
-                onClick={(e) => {
-                  (e.stopPropagation(), handleQuitarfavorito());
-                }}
-              >
-                Quitar favorito
-              </button>
-            ) : (
-              <button
-                onClick={(e) => {
-                  (e.stopPropagation(), handlePersonalizado());
-                }}
-              >
-                Agregar favorito
-              </button>
-            )}
+        {/* Pool con ícono pixel art */}
+        {item.Pool && (
+          <div className="item-card__pool">
+            {PoolIcon && <PoolIcon size={16} />}
+            <span>{item.Pool}</span>
           </div>
         )}
+
+        {/* Footer — tipo con ícono pixel art + punto de calidad */}
+        <div className="item-card__footer">
+          {/* CAMBIO: en vez de emojis ⚡/✨ usamos los íconos SVG del juego */}
+          <div className="item-card__type-icon" title={item.Typeitem}>
+            {item.Typeitem === "Active" ? (
+              <ActiveIcon size={18} />
+            ) : (
+              <PassiveIcon size={18} />
+            )}
+          </div>
+          <span className="item-card__qdot" title={qLabel} />
+        </div>
+
+        {/* Menú */}
+        <div className="item-card__menu-wrapper">
+          <button
+            className="item-card__menu-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              setMostrarMenu(mostrarMenu === item.id ? null : item.id);
+            }}
+          >
+            ⋮
+          </button>
+
+          {mostrarMenu === item.id && (
+            <div className="item-card__dropdown">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/edit/${item.id}`);
+                }}
+              >
+                Editar
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(item.id);
+                }}
+              >
+                Eliminar
+              </button>
+
+              {FavoritoLista ? (
+                <button
+                  onClick={(e) => {
+                    (e.stopPropagation(), handleQuitarfavorito());
+                  }}
+                >
+                  Quitar favorito
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    (e.stopPropagation(), handlePersonalizado());
+                  }}
+                >
+                  Agregar favorito
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);

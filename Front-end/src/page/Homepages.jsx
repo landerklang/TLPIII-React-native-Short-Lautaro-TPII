@@ -4,6 +4,7 @@ import { ItemCard } from "../components/Itemcard.jsx";
 import { SearchBar } from "../components/SearchBar.jsx";
 import "../styles/Homepages.css";
 import { FavoritoContext } from "../context/FavoritoProvider.jsx";
+import { useMemo, useCallback } from "react";
 
 export const Homepages = () => {
   const [Item, setItem] = useState([]);
@@ -14,12 +15,15 @@ export const Homepages = () => {
   const { favorito } = useContext(FavoritoContext);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const id = e.target.value;
-    if (id) {
-      navigate(`/item/${id}`);
-    }
-  };
+  const handleChange = useCallback(
+    (e) => {
+      const id = e.target.value;
+      if (id) {
+        navigate(`/item/${id}`);
+      }
+    },
+    [navigate],
+  );
 
   const loadAllData = async () => {
     try {
@@ -49,16 +53,19 @@ export const Homepages = () => {
     }
   };
 
-  const filteredItems = Item.filter((item) => {
-    const matchesSearch = item.Name?.toLowerCase().includes(
-      search.toLowerCase(),
-    );
+  const filteredItems = useMemo(() => {
+    return Item.filter((item) => {
+      const matchesSearch = item.Name?.toLowerCase().includes(
+        search.toLowerCase(),
+      );
 
-    const matchesType =
-      typeFilter === "all" || item.Typeitem?.toLowerCase() === typeFilter;
+      const matchesType =
+        typeFilter === "all" || item.Typeitem?.toLowerCase() === typeFilter;
 
-    return matchesSearch && matchesType;
-  });
+      return matchesSearch && matchesType;
+    });
+  }, [Item, search, typeFilter]);
+
   // si es solamente uno se hace de esta forma para que ademas no se repita cada ves que se añadie un cambio en las funcionse
   useEffect(() => {
     loadAllData();
